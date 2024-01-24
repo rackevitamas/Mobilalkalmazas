@@ -1,5 +1,8 @@
-import flet as ft
-def main(page: ft.Page):
+import flet as mobil
+def main(page: mobil.Page) -> None:
     page.add(
-        ft.Text(value='Hello user!')
+        mobil.Text(value='Hello user!', color='red')
     )
+    page.update()
+if __name__== '__main__':
+    mobil.app(target=main)
