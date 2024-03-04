@@ -7,6 +7,11 @@ def main(page: ft.Page) -> None:
     page.horizontal_alignment=ft.CrossAxisAlignment.CENTER
     page.title="Two Containers"
 
+    text = ft.Text(
+        value="Two containers",
+        theme_style=ft.TextThemeStyle.HEADLINE_MEDIUM
+    )
+
     c1 = ft.Container(
         width=200,
         height=200,
@@ -20,6 +25,7 @@ def main(page: ft.Page) -> None:
         bgcolor='blue'
     )
 
+    page.add(text)
     page.add(
         ft.Row(
             controls=[c1, c2],
