@@ -11,7 +11,7 @@ def main(page: ft.Page) -> None:
         width=200,
         height=200,
         bgcolor='red',
-        margin=margin.only(right=100)
+        
     )
 
     c2 = ft.Container(
@@ -23,6 +23,8 @@ def main(page: ft.Page) -> None:
     page.add(
         ft.Row(
             controls=[c1, c2],
+            spacing= 100,
+            alignment=ft.MainAxisAlignment.CENTER,
         )
     )
     page.update()
