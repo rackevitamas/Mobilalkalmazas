@@ -13,7 +13,6 @@ def main(page: ft.page) -> None:
         color='white'
     )
     
-    # Az oldal szélességének a harmada
     third_of_width = page.width // 3
 
     c1 = ft.Container(
@@ -40,7 +39,6 @@ def main(page: ft.page) -> None:
         bgcolor='green'
     )
 
-    # Minden konténer egy sorban, Wrap opcióval, hogy ha nem férnek el, akkor a következő sorba kerüljenek
     page.add(text)
     page.add(ft.Row(controls=[c1, c2, c3, c4], wrap=True))
     page.update()
