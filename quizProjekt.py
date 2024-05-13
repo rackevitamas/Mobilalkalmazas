@@ -1,52 +1,77 @@
 import flet as ft
-
 def main(page: ft.Page) -> None:
 
-    page.theme_mode = ft.ThemeMode.DARK
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+
+    page.theme_mode = ft.ThemeMode.DARK
     page.title = "Quiz"
     page.scroll = ft.ScrollMode.AUTO
 
     t1 = ft.Text(
-        value="Ezek közül melyik Európa Unió tagja?"
+        value="Az alábbiak közül melyik Spanyolország fővárosa?"
     )
 
-    c1 = ft.Checkbox(label="Németország", value=False)
-    c2 = ft.Checkbox(label="Franciaország", value=False)
-    c3 = ft.Checkbox(label="Szerbia", value=False)
-    c4 = ft.Checkbox(label="Görögország", value=False)
+
+    t1R = ft.RadioGroup(
+        content=ft.Column([
+            ft.Radio(value="Madrid", label="Madrid", width=300),
+            ft.Radio(value="Malaga", label="Malaga", width=300),
+            ft.Radio(value="Barcelona", label="Barcelona", width=300)
+        ])
+    )
+
 
     t2 = ft.Text(
-        value=""
+        value="Milyen fajta vitamin az A-vitamin?"
+    )
+
+    t2R = ft.RadioGroup(
+        content=ft.Column([
+            ft.Radio(value="vízben oldódó", label="Vízben oldódó", width=300),
+            ft.Radio(value="zsírban oldódó", label="Zsírban oldódó", width=300),
+        ])
     )
 
     t3 = ft.Text(
-        value=""
+        value="Ford gyártók helyek?"
     )
+
+
+    t3R1 = ft.Checkbox(label="Köln", value=False)
+    t3R2 = ft.Checkbox(label="Saarlouis", value=False)
+    t3R3 = ft.Checkbox(label="Budapest", value=False)
+    t3R4 = ft.Checkbox(label="London", value=False)
+
+
 
     t4 = ft.Text(
-        value=""
+        value="Ford cég eredeti termékeny cég volt-e?"
     )
+
+
+    t4R = ft.Dropdown(
+        width=300,
+        options=[
+            ft.dropdown.Option("Igaz"),
+            ft.dropdown.Option("Hamis")
+        ]
+    )
+
 
     t5 = ft.Text(
-        value=""
+        value="Mandy's Alap keveréke?"
     )
 
-    t6 = ft.Text(
-        value=""
-    )
-    
-    t7 = ft.Text(
-        value=""
-    )
+    t5R1 = ft.Checkbox(label="Kakkukfű", value=False)
+    t5R2 = ft.Checkbox(label="Galaj", value=False)
+    t5R3 = ft.Checkbox(label="Fahéj", value=False)
+    t5R4 = ft.Checkbox(label="Eper", value=False)
 
-    t8 = ft.Text(
-        value=""
-    )
-    
+    container = ft.Container()
 
-    page.add()
+    page.add(t1, t1R, t2, t2R, t3, t3R1, t3R2, t3R3, t3R4, t4, t4R)
+    page.update()
 
 
 if __name__ == '__main__':
