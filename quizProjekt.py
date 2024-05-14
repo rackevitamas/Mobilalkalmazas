@@ -1,78 +1,157 @@
 import flet as ft
-def main(page: ft.Page) -> None:
 
+def main(page: ft.Page) -> None:
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
-
     page.theme_mode = ft.ThemeMode.DARK
     page.title = "Quiz"
     page.scroll = ft.ScrollMode.AUTO
 
-    t1 = ft.Text(
-        value="Az alábbiak közül melyik Spanyolország fővárosa?"
-    )
+    # Define correct answers
+    correct_answers = {
+        "q1": "Madrid",
+        "q2": "zsírban oldódó",
+        "q3": ["Köln", "Saarlouis"],
+        "q4": "Igaz",
+        "q5": ["Kakkukfű", "Galaj", "Fahéj"],
+        "q6": "Processzor",
+        "q7": "Igaz",
+        "q8": "World Health Organization"
+    }
 
-
-    t1R = ft.RadioGroup(
+    # Question 1
+    q1 = ft.Text(value="Az alábbiak közül melyik Spanyolország fővárosa?")
+    q1_options = ft.RadioGroup(
         content=ft.Column([
             ft.Radio(value="Madrid", label="Madrid", width=300),
             ft.Radio(value="Malaga", label="Malaga", width=300),
             ft.Radio(value="Barcelona", label="Barcelona", width=300)
-        ])
+        ], horizontal_alignment=ft.CrossAxisAlignment.CENTER),
+        name="q1"
     )
 
-
-    t2 = ft.Text(
-        value="Milyen fajta vitamin az A-vitamin?"
-    )
-
-    t2R = ft.RadioGroup(
+    # Question 2
+    q2 = ft.Text(value="Milyen fajta vitamin az A-vitamin?")
+    q2_options = ft.RadioGroup(
         content=ft.Column([
             ft.Radio(value="vízben oldódó", label="Vízben oldódó", width=300),
             ft.Radio(value="zsírban oldódó", label="Zsírban oldódó", width=300),
-        ])
+        ], horizontal_alignment=ft.CrossAxisAlignment.CENTER),
+        name="q2"
     )
 
-    t3 = ft.Text(
-        value="Ford gyártók helyek?"
-    )
+    # Question 3
+    q3 = ft.Text(value="Ford gyártók helyek?")
+    q3_options = ft.Column([
+        ft.Checkbox(label="Köln", value=False, name="q3_1"),
+        ft.Checkbox(label="Saarlouis", value=False, name="q3_2"),
+        ft.Checkbox(label="Budapest", value=False, name="q3_3"),
+        ft.Checkbox(label="London", value=False, name="q3_4")
+    ], horizontal_alignment=ft.CrossAxisAlignment.CENTER)
 
-
-    t3R1 = ft.Checkbox(label="Köln", value=False)
-    t3R2 = ft.Checkbox(label="Saarlouis", value=False)
-    t3R3 = ft.Checkbox(label="Budapest", value=False)
-    t3R4 = ft.Checkbox(label="London", value=False)
-
-
-
-    t4 = ft.Text(
-        value="Ford cég eredeti termékeny cég volt-e?"
-    )
-
-
-    t4R = ft.Dropdown(
+    # Question 4
+    q4 = ft.Text(value="Ford cég eredeti termékeny cég volt?")
+    q4_options = ft.Dropdown(
         width=300,
         options=[
             ft.dropdown.Option("Igaz"),
             ft.dropdown.Option("Hamis")
-        ]
+        ],
+        name="q4"
     )
 
+    # Question 5
+    q5 = ft.Text(value="Mandy's Alap keveréke?")
+    q5_options = ft.Column([
+        ft.Checkbox(label="Kakkukfű", value=False, name="q5_1"),
+        ft.Checkbox(label="Galaj", value=False, name="q5_2"),
+        ft.Checkbox(label="Fahéj", value=False, name="q5_3"),
+        ft.Checkbox(label="Eper", value=False, name="q5_4")
+    ], horizontal_alignment=ft.CrossAxisAlignment.CENTER)
 
-    t5 = ft.Text(
-        value="Mandy's Alap keveréke?"
+    # Question 6
+    q6 = ft.Text(value="Számítógép részei:")
+    q6_options = ft.RadioGroup(
+        content=ft.Column([
+            ft.Radio(value="Processzor", label="Processzor", width=300),
+            ft.Radio(value="Nyomtató", label="Nyomtató", width=300),
+            ft.Radio(value="RAM", label="RAM", width=300)
+        ], horizontal_alignment=ft.CrossAxisAlignment.CENTER),
+        name="q6"
     )
 
-    t5R1 = ft.Checkbox(label="Kakkukfű", value=False)
-    t5R2 = ft.Checkbox(label="Galaj", value=False)
-    t5R3 = ft.Checkbox(label="Fahéj", value=False)
-    t5R4 = ft.Checkbox(label="Eper", value=False)
+    # Question 7
+    q7 = ft.Text(value="Világegyetem matekból áll?")
+    q7_options = ft.RadioGroup(
+        content=ft.Column([
+            ft.Radio(value="Igaz", label="Igaz", width=300),
+            ft.Radio(value="Hamis", label="Hamis", width=300)
+        ], horizontal_alignment=ft.CrossAxisAlignment.CENTER),
+        name="q7"
+    )
 
-    container = ft.Container()
+    # Question 8
+    q8 = ft.Text(value="Minek a rövidítése WHO-nak?")
+    q8_options = ft.TextField(name="q8", width=300)
 
-    page.add(t1, t1R, t2, t2R, t3, t3R1, t3R2, t3R3, t3R4, t4, t4R)
+    # Function to calculate the score
+    def calculate_score(e):
+        score = 0
+        total_questions = 8
+
+        # Check answers
+        if q1_options.value == correct_answers["q1"]:
+            score += 1
+        if q2_options.value == correct_answers["q2"]:
+            score += 1
+        selected_q3 = [cb.label for cb in q3_options.controls if isinstance(cb, ft.Checkbox) and cb.value]
+        if selected_q3 == correct_answers["q3"]:
+            score += 1
+        if q4_options.value == correct_answers["q4"]:
+            score += 1
+        selected_q5 = [cb.label for cb in q5_options.controls if isinstance(cb, ft.Checkbox) and cb.value]
+        if selected_q5 == correct_answers["q5"]:
+            score += 1
+        if q6_options.value == correct_answers["q6"]:
+            score += 1
+        if q7_options.value == correct_answers["q7"]:
+            score += 1
+        if q8_options.value.strip() == correct_answers["q8"]:
+            score += 1
+
+        # Calculate percentage
+        percentage = (score / total_questions) * 100
+
+        # Display score
+        result.value = f"Your score is: {percentage}% ({score}/{total_questions} correct)"
+        page.update()
+
+    # Submit button
+    submit_button = ft.ElevatedButton(text="Submit", on_click=calculate_score)
+
+    # Result text
+    result = ft.Text()
+
+    # Container for all questions and submit button
+    c1 = ft.Container(
+        content=ft.Column([
+            q1, q1_options, 
+            q2, q2_options, 
+            q3, q3_options, 
+            q4, q4_options, 
+            q5, q5_options, 
+            q6, q6_options, 
+            q7, q7_options, 
+            q8, q8_options,
+            submit_button,
+            result
+        ], horizontal_alignment=ft.CrossAxisAlignment.CENTER),
+        alignment=ft.alignment.center
+    )
+
+    # Add the container to the page
+    page.add(c1)
     page.update()
-
 
 if __name__ == '__main__':
     ft.app(target=main)
