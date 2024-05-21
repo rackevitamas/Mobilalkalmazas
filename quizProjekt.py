@@ -14,7 +14,7 @@ def main(page: ft.Page) -> None:
         "q3": ["Köln", "Saarlouis"],
         "q4": "Igaz",
         "q5": ["Kakkukfű", "Galaj", "Fahéj"],
-        "q6": "Processzor",
+        "q6": "RAM",
         "q7": "Igaz",
         "q8": "World Health Organization"
     }
@@ -26,8 +26,7 @@ def main(page: ft.Page) -> None:
             ft.Radio(value="Madrid", label="Madrid", width=300),
             ft.Radio(value="Malaga", label="Malaga", width=300),
             ft.Radio(value="Barcelona", label="Barcelona", width=300)
-        ], horizontal_alignment=ft.CrossAxisAlignment.CENTER),
-        name="q1"
+        ], horizontal_alignment=ft.CrossAxisAlignment.CENTER)
     )
 
     # Question 2
@@ -36,17 +35,16 @@ def main(page: ft.Page) -> None:
         content=ft.Column([
             ft.Radio(value="vízben oldódó", label="Vízben oldódó", width=300),
             ft.Radio(value="zsírban oldódó", label="Zsírban oldódó", width=300),
-        ], horizontal_alignment=ft.CrossAxisAlignment.CENTER),
-        name="q2"
+        ], horizontal_alignment=ft.CrossAxisAlignment.CENTER)
     )
 
     # Question 3
     q3 = ft.Text(value="Ford gyártók helyek?")
     q3_options = ft.Column([
-        ft.Checkbox(label="Köln", value=False, name="q3_1"),
-        ft.Checkbox(label="Saarlouis", value=False, name="q3_2"),
-        ft.Checkbox(label="Budapest", value=False, name="q3_3"),
-        ft.Checkbox(label="London", value=False, name="q3_4")
+        ft.Checkbox(label="Köln", value=False),
+        ft.Checkbox(label="Saarlouis", value=False),
+        ft.Checkbox(label="Budapest", value=False),
+        ft.Checkbox(label="London", value=False)
     ], horizontal_alignment=ft.CrossAxisAlignment.CENTER)
 
     # Question 4
@@ -56,28 +54,26 @@ def main(page: ft.Page) -> None:
         options=[
             ft.dropdown.Option("Igaz"),
             ft.dropdown.Option("Hamis")
-        ],
-        name="q4"
+        ]
     )
 
     # Question 5
     q5 = ft.Text(value="Mandy's Alap keveréke?")
     q5_options = ft.Column([
-        ft.Checkbox(label="Kakkukfű", value=False, name="q5_1"),
-        ft.Checkbox(label="Galaj", value=False, name="q5_2"),
-        ft.Checkbox(label="Fahéj", value=False, name="q5_3"),
-        ft.Checkbox(label="Eper", value=False, name="q5_4")
+        ft.Checkbox(label="Kakkukfű", value=False),
+        ft.Checkbox(label="Galaj", value=False),
+        ft.Checkbox(label="Fahéj", value=False),
+        ft.Checkbox(label="Eper", value=False)
     ], horizontal_alignment=ft.CrossAxisAlignment.CENTER)
 
     # Question 6
     q6 = ft.Text(value="Számítógép részei:")
     q6_options = ft.RadioGroup(
         content=ft.Column([
-            ft.Radio(value="Processzor", label="Processzor", width=300),
+            ft.Radio(value="Professzor", label="Professzor", width=300),
             ft.Radio(value="Nyomtató", label="Nyomtató", width=300),
             ft.Radio(value="RAM", label="RAM", width=300)
-        ], horizontal_alignment=ft.CrossAxisAlignment.CENTER),
-        name="q6"
+        ], horizontal_alignment=ft.CrossAxisAlignment.CENTER)
     )
 
     # Question 7
@@ -86,13 +82,12 @@ def main(page: ft.Page) -> None:
         content=ft.Column([
             ft.Radio(value="Igaz", label="Igaz", width=300),
             ft.Radio(value="Hamis", label="Hamis", width=300)
-        ], horizontal_alignment=ft.CrossAxisAlignment.CENTER),
-        name="q7"
+        ], horizontal_alignment=ft.CrossAxisAlignment.CENTER)
     )
 
     # Question 8
     q8 = ft.Text(value="Minek a rövidítése WHO-nak?")
-    q8_options = ft.TextField(name="q8", width=300)
+    q8_options = ft.TextField(width=300)
 
     # Function to calculate the score
     def calculate_score(e):
