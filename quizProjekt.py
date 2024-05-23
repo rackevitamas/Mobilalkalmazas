@@ -40,12 +40,15 @@ def main(page: ft.Page) -> None:
 
     # Question 3
     q3 = ft.Text(value="Ford gyártók helyek?")
-    q3_options = ft.Column([
-        ft.Checkbox(label="Köln", value=False),
-        ft.Checkbox(label="Saarlouis", value=False),
-        ft.Checkbox(label="Budapest", value=False),
-        ft.Checkbox(label="London", value=False)
-    ], horizontal_alignment=ft.CrossAxisAlignment.CENTER)
+    q3_options = ft.Container(
+        ft.Column([
+            ft.Checkbox(label="Köln", value=False),
+            ft.Checkbox(label="Saarlouis", value=False),
+            ft.Checkbox(label="Budapest", value=False),
+            ft.Checkbox(label="London", value=False)
+        ], 
+            horizontal_alignment=ft.CrossAxisAlignment.CENTER),
+            width=300)
 
     # Question 4
     q4 = ft.Text(value="Ford cég eredeti termékeny cég volt?")
@@ -59,12 +62,15 @@ def main(page: ft.Page) -> None:
 
     # Question 5
     q5 = ft.Text(value="Mandy's Alap keveréke?")
-    q5_options = ft.Column([
-        ft.Checkbox(label="Kakkukfű", value=False),
-        ft.Checkbox(label="Galaj", value=False),
-        ft.Checkbox(label="Fahéj", value=False),
-        ft.Checkbox(label="Eper", value=False)
-    ], horizontal_alignment=ft.CrossAxisAlignment.CENTER)
+    q5_options = ft.Container(
+            ft.Column([
+                ft.Checkbox(label="Kakkukfű", value=False),
+                ft.Checkbox(label="Galaj", value=False),
+                ft.Checkbox(label="Fahéj", value=False),
+                ft.Checkbox(label="Eper", value=False)
+            ], 
+                horizontal_alignment=ft.CrossAxisAlignment.CENTER),
+            width=300)
 
     # Question 6
     q6 = ft.Text(value="Számítógép részei:")
@@ -122,7 +128,7 @@ def main(page: ft.Page) -> None:
         page.update()
 
     # Submit button
-    submit_button = ft.ElevatedButton(text="Submit", on_click=calculate_score)
+    submit_button = ft.ElevatedButton(text="Ellenőrzés!", on_click=calculate_score)
 
     # Result text
     result = ft.Text()
