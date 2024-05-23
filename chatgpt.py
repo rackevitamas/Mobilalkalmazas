@@ -18,18 +18,19 @@ def main(page: ft.Page) -> None:
         )
         return response.choices[0].text.strip()
 
-def main():
-    print("Üdvözöllek a ChatGPT programban! Kilépéshez írd be: 'exit'")
+def main(page: ft.Page) -> None:
+    ft.Text("Üdvözöllek a ChatGPT programban! Kilépéshez írd be: 'exit'")
         
     while True:
-        user_input = input("Te: ")
-            
+        user_input = ft.TextField(value="Te: ")
         if user_input.lower() == 'exit':
-            print("Köszönöm, hogy használtad a ChatGPT programot!")
+            ft.Text("Köszönöm, hogy használtad a ChatGPT programot!")
             break
             
         response = chat(user_input)
-        print("ChatGPT: ", response)
+        ft.Text(f"ChatGPT: {response}")
+        
+    page.add()
 
 if __name__ == "__main__":
     ft.app(target=main)
