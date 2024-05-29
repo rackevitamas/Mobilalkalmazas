@@ -4,8 +4,20 @@ def main(page: ft.Page) -> None:
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     page.theme_mode = ft.ThemeMode.DARK
+    page.scroll = ft.ScrollMode.AUTO
     
     current_container = None
+    image_src = None
+
+    def pick_files_result(e: ft.FilePickerResultEvent):
+        if e.files:
+            selected_files.value = e.files[0].name
+            image_src.src = e.files[0].path
+        else:
+            selected_files.value = "Cancelled!"
+            image_src.src = ""
+        selected_files.update()
+        image_src.update()
 
     def button_clicked(e):
         nonlocal current_container
@@ -30,6 +42,7 @@ def main(page: ft.Page) -> None:
                     alignment=ft.MainAxisAlignment.CENTER,
                 )
             )
+        
         page.update()
     
     def minus_click(e):
@@ -41,6 +54,29 @@ def main(page: ft.Page) -> None:
         if current_container.opacity < 1:
             current_container.opacity += 0.1
         page.update()
+    
+    
+    pick_files_dialog = ft.FilePicker(on_result=pick_files_result)
+    selected_files = ft.Text()
+    image_src = ft.Image()
+
+    page.overlay.append(pick_files_dialog)
+
+    page.add(
+        ft.Row(
+            [
+                ft.ElevatedButton(
+                    "Pick files",
+                    icon=ft.icons.UPLOAD_FILE,
+                    on_click=lambda _: pick_files_dialog.pick_files(
+                        allow_multiple=True
+                    ),
+                ),
+                selected_files,
+            ],
+            alignment=ft.MainAxisAlignment.CENTER,
+        )
+    )
     
     red = ft.Container(
         bgcolor=ft.colors.RED,
@@ -78,6 +114,7 @@ def main(page: ft.Page) -> None:
         on_click=button_clicked
     )
 
+    page.add(image_src)
     page.add(red_button, green_button, blue_button)
     
 if __name__ == "__main__":
