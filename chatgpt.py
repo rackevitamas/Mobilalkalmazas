@@ -6,7 +6,7 @@ def main(page: ft.Page) -> None:
     
 
 # Az API kulcsot itt kell megadni
-    api_key = 'your_openai_api_key'
+    api_key = 'sk-proj-zO6LNh5AjjS93VRYnHlzT3BlbkFJCQanAg4huDsWatz718HH'
 
 # ChatGPT üzenetgeneráló függvény
     def chat(prompt, engine='davinci'):
@@ -23,7 +23,7 @@ def main(page: ft.Page) -> None:
         
     while True:
         user_input = ft.TextField(value="Te: ")
-        if user_input.lower() == 'exit':
+        if user_input == 'exit':
             ft.Text("Köszönöm, hogy használtad a ChatGPT programot!")
             break
             
