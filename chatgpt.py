@@ -1,5 +1,8 @@
 import openai
 import flet as ft
+import os
+import time
+import threading
 
 
 def main(page: ft.Page) -> None:
@@ -7,10 +10,8 @@ def main(page: ft.Page) -> None:
     page.horizontal_alignment = "center"
     page.vertical_alignment = "center"
 
-# Az API kulcsot itt kell megadni
-    api_key = 'sk-proj-zO6LNh5AjjS93VRYnHlzT3BlbkFJCQanAg4huDsWatz718HH'
+    api_key = os.getenv('sk-proj-zO6LNh5AjjS93VRYnHlzT3BlbkFJCQanAg4huDsWatz718HH')
 
-# ChatGPT üzenetgeneráló függvény
     def chat(prompt, engine='davinci'):
         openai.api_key = api_key
         response = openai.Completion.create(
@@ -20,24 +21,35 @@ def main(page: ft.Page) -> None:
         )
         return response.choices[0].text.strip()
 
+    greeting_text = ft.Text("Üdvözöllek a ChatGPT programban! Kilépéshez írd be: 'exit'")
+    user_input = ft.TextField(label="Te", width=400)
+    chat_output = ft.Column()
 
-    page.add(ft.Text("Üdvözöllek a ChatGPT programban! Kilépéshez írd be: 'exit'"))
-        
-    while True:
-        user_input = ft.TextField(value="Te: ")
-        page.add(user_input)
-        if user_input.value == 'exit':
-            ft.Text("Köszönöm, hogy használtad a ChatGPT programot!")
-            break
+    def send_message(e):
+        prompt = user_input.value
+        if prompt.lower() == 'exit':
+            chat_output.controls.append(ft.Text("Köszönöm, hogy használtad a ChatGPT programot!"))
+            page.update()
             
-        page.add(response = chat(user_input))
-        page.update()
-        # print(response)
-        page.add(
-            ft.Text(f"ChatGPT: {response}")
-        )
+            def delayed_close():
+                time.sleep(3)
+                page.window_close()
+            
+            threading.Thread(target=delayed_close).start()
+            return
+        
+        response_text = chat(prompt)
+        chat_output.controls.append(ft.Text(f"Te: {prompt}"))
+        chat_output.controls.append(ft.Text(f"ChatGPT: {response_text}"))
+        user_input.value = ""
         page.update()
 
+    send_button = ft.ElevatedButton(text="Küldés", on_click=send_message)
+
+    page.add(greeting_text)
+    page.add(user_input)
+    page.add(send_button)
+    page.add(chat_output)
 
 if __name__ == "__main__":
     ft.app(target=main)
